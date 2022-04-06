@@ -33,17 +33,18 @@ export default {
       // 配置项
       table_config: {
         thead: [
-          {
+          { 
             label: '姓名',
             prop: 'name',
             minWidth: '150px',
-            router: {path: 'xxx'}
+            router: true,
+            routerPath: 'xxx'
           },
           {
             label: '性别',
             prop: 'sex',
             minWidth: '100px',
-            type: 'function',
+            filter: true,
             callback: (rowData) => {
               let data = sexType[rowData.sex]
               if(data) {
@@ -51,14 +52,14 @@ export default {
               }
             }
           },
-          {label: '头像',prop: 'img',minWidth: '100px',type: 'image'},
+          {label: '头像',prop: 'img',  minWidth: '100px',image: true},
           {label: '电话',prop: 'phone',minWidth: '150px',},
-          {label: '时间',prop: 'time',minWidth: '200px',sortable: true},
+          {label: '时间',prop: 'time', minWidth: '200px',sortable: true},
           {
             label: '角色',
             prop: 'role',
             minWidth: '150px',
-            type: 'function',
+            filter: true,
             colorName: '',
             callback: (rowData) => {
               let data = roleType[rowData.role]
@@ -77,7 +78,7 @@ export default {
             label: '状态',
             prop: 'status',
             minWidth: '150px',
-            type: 'switch',
+            switch: true,
             callback: this.changeStatus
           },
         ],

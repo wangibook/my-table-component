@@ -14,74 +14,44 @@
       <!-- 是否需要序号 -->
       <el-table-column type="index" label="序号" width="55" align="center" v-if="table_config.isIndex"/>
 
-      <template v-for="item in table_config.thead">
-        <el-table-column
-          v-if="item.type === 'function' " 
-          :key="item.prop" 
-          :prop="item.prop" 
-          :label="item.label"
-          :min-width="item.minWidth"
-          align="center">
-          <template slot-scope="scope">
-            <span :class="item.isSpecialClass && item.isSpecialClass(scope.row)">
-              {{item.callback && item.callback(scope.row)}}
-            </span>
-          </template>
-        </el-table-column>
-        <el-table-column
-          v-else-if="item.type === 'image' " 
-          :key="item.prop" 
-          :prop="item.prop" 
-          :label="item.label"
-          :min-width="item.minWidth"
-          align="center">
-          <template slot-scope="scope">
-            <img :src="scope.row[item.prop]" style="width:40px; height: 40px">
-          </template>
-        </el-table-column>
-        <el-table-column
-          v-else-if="item.type === 'switch' " 
-          :key="item.prop" 
-          :prop="item.prop" 
-          :label="item.label"
-          :min-width="item.minWidth"
-          align="center">
-          <template slot-scope="scope">
-  
-            <el-switch
-              v-model="scope.row[item.prop]"
-              active-text="启用"
-              active-value = 1
-              inactive-value = 0
-              inactive-text="停用"
-              @change="item.callback && item.callback(scope.row)"
-              >
-            </el-switch>
-          </template>
-        </el-table-column>
-        <el-table-column
-          v-else-if="item.router" 
-          :key="item.prop" 
-          :prop="item.prop" 
-          :label="item.label"
-          :min-width="item.minWidth"
-          align="center">
-          <template slot-scope="scope">
-            <router-link :to="{path: item.router.path, query: {name: scope.row[item.prop]}}">
-              {{ scope.row[item.prop]}}
-            </router-link>
-          </template>
-        </el-table-column>
-        <el-table-column
-          v-else 
-          :key="item.prop" 
-          :prop="item.prop" 
-          :label="item.label"
-          :min-width="item.minWidth"
-          :sortable="item.sortable ? true : false"
-          align="center">
-        </el-table-column>
-      </template>
+      <el-table-column
+        v-for="item in table_config.thead"
+        :key="item.prop" 
+        :prop="item.prop" 
+        :label="item.label"
+        :min-width="item.minWidth"
+        :sortable="item.sortable ? true : false"
+        align="center">
+        <template slot-scope="scope">
+          <!-- 有状态过滤 -->
+          <span v-if="item.filter" :class="item.isSpecialClass && item.isSpecialClass(scope.row)">
+            {{item.callback && item.callback(scope.row)}}
+          </span>
+          <!-- 图片展示 -->
+          <img v-else-if="item.image" :src="scope.row[item.prop]" style="width:40px; height: 40px">
+          <!-- switch开关 -->
+          <el-switch
+            v-else-if="item.switch"
+            v-model="scope.row[item.prop]"
+            active-text="启用"
+            active-value = 1
+            inactive-value = 0
+            inactive-text="停用"
+            @change="item.callback && item.callback(scope.row)"
+          >
+          </el-switch>
+          <!-- 有跳转 -->
+          <router-link 
+            v-else-if="item.router" 
+            :to="{path: item.routerPath, query: {name: scope.row[item.prop]}}"
+          >
+            {{ scope.row[item.prop]}}
+          </router-link>
+          <!-- 默认展示 -->
+          <span v-else>{{ scope.row[item.prop]}}</span>
+        </template>
+      </el-table-column>
+
       <!-- 操作列 -->
       <el-table-column
         fixed="right"
