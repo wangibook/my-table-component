@@ -7,7 +7,7 @@
 ![](/assets/table.jpg)
 
 ### 1. 在 component中 创建文件夹 talbeData 添加文件 index.vue
-`
+``` js
 <template>
   <div class="app-container">
     <el-table
@@ -199,10 +199,11 @@ export default {
   cursor: pointer;
 }
 </style>
-`
+
+```
 
 ### 2. 在组件中引用
-`
+``` html
 <tableData 
   :config="table_config"
   :dataList="dataList"
@@ -210,7 +211,7 @@ export default {
   @selection-change="selectionChange"
   @sort-change="sortChange"
 />
-`
+```
 
 ## 3.配置参数
 ### table_config
