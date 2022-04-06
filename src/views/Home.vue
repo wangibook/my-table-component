@@ -67,7 +67,7 @@ export default {
                 return data.label
               }
             },
-            isSpecialClass: (rowData) => {
+            specialClass: (rowData) => {
               let data = roleType[rowData.role]
               if(data) {
                 return data.className

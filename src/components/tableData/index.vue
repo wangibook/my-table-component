@@ -24,7 +24,7 @@
         align="center">
         <template slot-scope="scope">
           <!-- 有状态过滤 -->
-          <span v-if="item.filter" :class="item.isSpecialClass && item.isSpecialClass(scope.row)">
+          <span v-if="item.filter" :class="item.specialClass && item.specialClass(scope.row)">
             {{item.callback && item.callback(scope.row)}}
           </span>
           <!-- 图片展示 -->

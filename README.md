@@ -34,7 +34,7 @@
         align="center">
         <template slot-scope="scope">
           <!-- 有状态过滤 -->
-          <span v-if="item.filter" :class="item.isSpecialClass && item.isSpecialClass(scope.row)">
+          <span v-if="item.filter" :class="item.specialClass && item.specialClass(scope.row)">
             {{item.callback && item.callback(scope.row)}}
           </span>
           <!-- 图片展示 -->
@@ -237,8 +237,18 @@ export default {
 | switch | 是否有开关 | Boolean | false |
 | routerPath | 跳转地址 | string | - |
 
+
 ### Table Events
 |  参数  | 说明  |  类型  | 默认值 |
 |  ----  | ----  |  ----  | ----  |
 | selection-change  | 多选事件 | Function | - |
 | sort-change  | 排序事件 | Function | - |
+
+### table-column Events
+|  参数  | 说明  |  类型  | 默认值 |
+|  ----  | ----  |  ----  | ----  |
+| callback | 回调函数 | Function(row) | - |
+| specialClass  | 特殊字体颜色函数 | Function(row) | - |
+| handleRow  | 操作列回调函数 | Function(row, label) | - |
+
+
