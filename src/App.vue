@@ -39,7 +39,7 @@ export default {
 
 .nav {
   text-align: center;
-  padding: 30px;
+  padding: 15px;
   border-bottom: 1px solid lightgray;
 
   a {

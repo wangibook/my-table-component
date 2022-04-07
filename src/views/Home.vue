@@ -1,6 +1,11 @@
 <template>
   <div>
-    <tableData 
+    <TableSearch 
+      :config="form_config" 
+      :formInfo="formInfo" 
+    />
+
+    <TableData 
       :config="table_config"
       :dataList="dataList"
       :loading="loading"
@@ -8,7 +13,7 @@
       @sort-change="sortChange"
     />
 
-    <pagination
+    <Pagination
       :total="total"
       :pageNum.sync="pages.pageNum"
       :limit.sync="pages.pageSize"
@@ -21,16 +26,84 @@
 import { getList } from '@/api/table'
 import TableData from '@/components/tableData';
 import Pagination from '@/components/pagination';
-import { sexType,roleType } from '../utils/config';
+import TableSearch from '@/components/tableSearch';
+import { sexType,roleType } from '@/utils/config';
 
 export default {
   components: {
     TableData,
-    Pagination
+    Pagination,
+    TableSearch
   },
   data() {
     return {
-      // 配置项
+      // 查询配置项
+      form_config: {
+        labelWidth: '120px',
+        formItemList: {
+          1: [
+            {
+              label: '姓名',
+              name: 'name',
+              type: 'text',
+              placeholder: '请输入姓名'
+            },
+            {
+              label: '时间',
+              name: 'time',
+              type: 'daterange',
+              callback: (data) => {
+                console.log(data);
+              }
+            },
+            {
+              label: '角色',
+              name: 'role',
+              type: 'select',
+              clearable: true,
+              multiple: true,
+              collapseTags: true,
+              placeholder: '请选择角色',
+              optList: [
+                {label:'一号选手',value:1},
+                {label:'二号选手',value:2},
+                {label:'三号选手',value:3}
+              ]
+            },
+            {
+              label: '状态',
+              name: 'status',
+              type: 'select',
+              clearable: true,
+              placeholder: '请选择状态',
+              optList: [
+                {label:'停用',value:0},
+                {label:'启用',value:1}
+              ]
+            },
+          ]
+        },
+        operate: [
+          {
+            label: '查询',
+            type: 'primary',
+            handleClick: this.handleSearch
+          },
+          {
+            label: '重置',
+            type: 'primary',
+            handleClick: this.handleReset
+          }
+        ]
+      },
+      // 查询条件
+      formInfo: {
+        name: '',
+        time: null,
+        role: '',
+        status: ''
+      },
+      // 列表配置项
       table_config: {
         thead: [
           { 
@@ -143,6 +216,12 @@ export default {
     },
     changeStatus(val) {
       console.log(val);
+    },
+    handleSearch() {
+      console.log('查询',this.formInfo);
+    },
+    handleReset() {
+      console.log('重置');
     }
   }
 }

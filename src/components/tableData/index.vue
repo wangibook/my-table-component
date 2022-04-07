@@ -151,7 +151,6 @@ export default {
           this.table_config[key] = this.config[key]
         }
       }
-      
     },
     // 多选事件
     handleSelectionChange(val) {
@@ -187,6 +186,9 @@ export default {
 .el-dropdown{
   margin-left: 10px;
   cursor: pointer;
+}
+.el-table >>> .el-table__cell{
+  padding: 5px 0 ;
 }
 </style>
 
