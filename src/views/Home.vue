@@ -40,7 +40,7 @@ export default {
       // 查询配置项
       form_config: {
         labelWidth: '120px',
-        formItemList: {
+        formItems: {
           1: [
             {
               label: '姓名',

@@ -16,7 +16,7 @@
           </div>
         </template>
         <el-form ref="form" :model="formInfo" :label-width="form_config.labelWidth" class="filter-main">
-          <template v-for="(value,key) in form_config.formItemList">
+          <template v-for="(value,key) in form_config.formItems">
             <el-row :key="key">
               <template v-for="item in value">
                 <el-col :span="6" :key="item.name">
@@ -83,7 +83,7 @@ export default {
       showFilter: true,
       form_config: {
         labelWidth: '100px',
-        formItemList: {},
+        formItems: {},
         operate: []
       }
     }
